@@ -2,4 +2,5 @@
 port = 4001
 
 [database]
-dburl = ""
+driver = "postgres"
+dburl = "host=localhost user=devpostgres password=devpostgres dbname=gorm_test port=5432 sslmode=disable TimeZone=Asia/Makassar"
