@@ -12,7 +12,8 @@ type AppConfig struct {
 		Port int `toml:"port"`
 	} `toml:"app"`
 	Database struct {
-		DBURL string `toml:"db_url"`
+		Driver string `toml:"driver"`
+		DBURL  string `toml:"dburl"`
 	} `toml:"database"`
 }
 
