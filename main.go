@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/w33h/Hexagonal-Architecture-Go/api"
-	"github.com/w33h/Hexagonal-Architecture-Go/app/modules"
-	"github.com/w33h/Hexagonal-Architecture-Go/config"
-	"github.com/w33h/Hexagonal-Architecture-Go/util"
+	api "github.com/w33h/Hexagonal-Architecture-Go/api"
+	modules "github.com/w33h/Hexagonal-Architecture-Go/app/modules"
+	config "github.com/w33h/Hexagonal-Architecture-Go/config"
+	util "github.com/w33h/Hexagonal-Architecture-Go/util"
 	"log"
 	"net/http"
 	"os"
