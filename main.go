@@ -2,14 +2,15 @@ package main
 
 import (
 	"fmt"
-	api "github.com/w33h/Hexagonal-Architecture-Go/api"
-	modules "github.com/w33h/Hexagonal-Architecture-Go/app/modules"
-	config "github.com/w33h/Hexagonal-Architecture-Go/config"
-	util "github.com/w33h/Hexagonal-Architecture-Go/util"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
+
+	api "github.com/w33h/Hexagonal-Architecture-Go/api"
+	modules "github.com/w33h/Hexagonal-Architecture-Go/app/modules"
+	config "github.com/w33h/Hexagonal-Architecture-Go/config"
+	util "github.com/w33h/Hexagonal-Architecture-Go/util"
 
 	"github.com/labstack/echo/v4"
 )
@@ -29,7 +30,7 @@ func main() {
 	api.RegistrationPath(e, controllers)
 
 	go func() {
-		adddress := fmt.Sprintf(":%d", 4001)
+		adddress := fmt.Sprintf("localhost:%d", 4001)
 		if err := e.Start(adddress); err != nil {
 			log.Fatal(err)
 		}
