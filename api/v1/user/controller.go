@@ -2,17 +2,17 @@ package user
 
 import (
 	"github.com/labstack/echo/v4"
-	domain "github.com/w33h/Hexagonal-Architecture-Go/business/user"
 	"github.com/w33h/Hexagonal-Architecture-Go/helpers"
+	"github.com/w33h/Hexagonal-Architecture-Go/service/user"
 	"net/http"
 	"strconv"
 )
 
 type Controller struct {
-	service domain.Service
+	service service.UserService
 }
 
-func NewController(service domain.Service) *Controller {
+func NewController(service service.UserService) *Controller {
 	return &Controller{
 		service: service,
 	}
