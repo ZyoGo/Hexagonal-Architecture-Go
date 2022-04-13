@@ -1,11 +1,14 @@
 package user
 
 import (
-	"github.com/labstack/echo/v4"
-	"github.com/w33h/Hexagonal-Architecture-Go/helpers"
-	"github.com/w33h/Hexagonal-Architecture-Go/service/user"
 	"net/http"
 	"strconv"
+
+	"github.com/labstack/echo/v4"
+	"github.com/w33h/Hexagonal-Architecture-Go/api/v1/user/request"
+	"github.com/w33h/Hexagonal-Architecture-Go/api/v1/user/response"
+	"github.com/w33h/Hexagonal-Architecture-Go/helpers"
+	service "github.com/w33h/Hexagonal-Architecture-Go/service/user"
 )
 
 type Controller struct {
@@ -25,15 +28,44 @@ func (ctrl *Controller) GetUser(c echo.Context) error {
 
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, &helpers.ResponseFormatter{
-			Status: http.StatusBadRequest,
+			Status:  http.StatusBadRequest,
 			Message: "Failed",
-			Data: err.Error(),
+			Data:    err.Error(),
 		})
 	}
 
+	userResponse := response.ToUserResponse(*user)
+
 	return c.JSON(http.StatusOK, &helpers.ResponseFormatter{
-		Status: http.StatusOK,
+		Status:  http.StatusOK,
 		Message: "Success",
-		Data: user,
+		Data:    userResponse,
+	})
+}
+
+func (ctrl *Controller) CreateUser(c echo.Context) error {
+	createUserRequest := new(request.CreateUserRequest)
+	if err := c.Bind(&createUserRequest); err != nil {
+		return c.JSON(http.StatusBadRequest, &helpers.ResponseFormatter{
+			Status:  http.StatusBadRequest,
+			Message: "Failed",
+			Data:    err.Error(),
+		})
+	}
+
+	user, err := ctrl.service.Create(*createUserRequest.ToUpsertUserSpec())
+
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, &helpers.ResponseFormatter{
+			Status:  http.StatusInternalServerError,
+			Message: "Failed",
+			Data:    err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusCreated, &helpers.ResponseFormatter{
+		Status:  http.StatusCreated,
+		Message: "Failed",
+		Data:    user,
 	})
 }

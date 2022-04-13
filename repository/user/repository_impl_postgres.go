@@ -23,3 +23,12 @@ func (repo *postgresRepository) FindById(Id int) (user *domain.Users, err error)
 
 	return user, nil
 }
+
+func (repo *postgresRepository) Save(user domain.Users) (domain.Users, error) {
+	err := repo.db.Create(&user).Error
+	if err != nil {
+		return domain.Users{}, err
+	}
+
+	return user, nil
+}
