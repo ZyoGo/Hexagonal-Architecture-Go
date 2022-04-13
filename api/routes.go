@@ -12,4 +12,5 @@ type Controller struct {
 func RegistrationPath(e *echo.Echo, controller Controller) {
 	userv1 := e.Group("/v1/user")
 	userv1.GET("/:id", controller.UserV1Controller.GetUser)
+	userv1.POST("", controller.UserV1Controller.CreateUser)
 }
