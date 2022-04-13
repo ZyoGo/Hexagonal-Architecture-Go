@@ -1,7 +1,6 @@
 package api
 
 import (
-	//userV1 "github.com/w33h/Hexagonal-Architecture-Go/api/v1/user"
 	"github.com/labstack/echo/v4"
 	userV1 "github.com/w33h/Hexagonal-Architecture-Go/api/v1/user"
 )
