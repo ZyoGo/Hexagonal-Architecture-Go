@@ -1,32 +1,31 @@
-package user
+package service
 
 import (
+	"github.com/w33h/Hexagonal-Architecture-Go/business/user"
 	"github.com/w33h/Hexagonal-Architecture-Go/business/user/spec"
-	repository "github.com/w33h/Hexagonal-Architecture-Go/repository/user"
 
 	validator "github.com/go-playground/validator/v10"
 )
 
 type service struct {
-	repo repository.UserRepository
+	repo     user.UserRepository
 	validate *validator.Validate
-
 }
 
-func NewService(repository repository.UserRepository) UserService {
+func NewServiceUser(repository user.UserRepository) user.UserService {
 	return &service{
-		repo: repository,
+		repo:     repository,
 		validate: validator.New(),
 	}
 }
 
-func (s *service) Create(userSpec spec.UpsertUserSpec) (Users, error) {
+func (s *service) Create(userSpec spec.UpsertUserSpec) (user.Users, error) {
 	err := s.validate.Struct(&userSpec)
 	if err != nil {
-		return Users{}, err
+		return user.Users{}, err
 	}
 
-	var user Users
+	var user user.Users
 	user.Username = userSpec.Username
 	user.Email = userSpec.Email
 	user.Password = userSpec.Password
@@ -40,13 +39,13 @@ func (s *service) Create(userSpec spec.UpsertUserSpec) (Users, error) {
 	return *result, nil
 }
 
-func (s *service) Update(userSpec spec.UpsertUserSpec) (Users, error) {
+func (s *service) Update(userSpec spec.UpsertUserSpec) (user.Users, error) {
 	err := s.validate.Struct(&userSpec)
 	if err != nil {
-		return Users{}, err
+		return user.Users{}, err
 	}
 
-	var user Users
+	var user user.Users
 	user.Username = userSpec.Username
 	user.Email = userSpec.Email
 	user.Password = userSpec.Password
@@ -68,7 +67,7 @@ func (s *service) Delete(id int) error {
 	return nil
 }
 
-func (s *service) FindById(id int) (Users, error) {
+func (s *service) FindById(id int) (user.Users, error) {
 	result, err := s.repo.FindById(id)
 	if err != nil {
 		return *result, err
@@ -77,7 +76,7 @@ func (s *service) FindById(id int) (Users, error) {
 	return *result, nil
 }
 
-func (s *service) FindAll() (users []Users, err error) {
+func (s *service) FindAll() (users []user.Users, err error) {
 	users, err = s.repo.FindAll()
 
 	if err != nil {
