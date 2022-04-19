@@ -1,12 +1,12 @@
-package repository
+package user
 
 import "github.com/w33h/Hexagonal-Architecture-Go/business/user"
 
 // Ingoing Port
 type UserRepository interface {
-	//Save(user Users) (Users, error)
-	//Update(user Users) (Users, error)
-	//Delete(Id int) (err error)
-	FindById(Id int) (user *domain.Users, err error)
-	//FindAll() (users []Users, err error)
+	Save(user user.Users) (*user.Users, error)
+	Update(user user.Users) (*user.Users, error)
+	Delete(Id int) (err error)
+	FindById(Id int) (*user.Users, error)
+	FindAll() ([]user.Users, error)
 }

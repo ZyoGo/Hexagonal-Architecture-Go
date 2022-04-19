@@ -3,14 +3,16 @@ package modules
 import (
 	"github.com/w33h/Hexagonal-Architecture-Go/api"
 	userV1Controller "github.com/w33h/Hexagonal-Architecture-Go/api/v1/user"
+	userService "github.com/w33h/Hexagonal-Architecture-Go/business/user"
 	userRepository "github.com/w33h/Hexagonal-Architecture-Go/repository"
-	userService "github.com/w33h/Hexagonal-Architecture-Go/service/user"
 	"github.com/w33h/Hexagonal-Architecture-Go/util"
 )
 
 func RegisterModules(dbCon *util.DatabaseConnection) api.Controller {
 	userPermitRepository := userRepository.RepositoryFactory(dbCon)
+	//userPermitService := userService.NewService(userPermitRepository)
 	userPermitService := userService.NewService(userPermitRepository)
+	//userPermitService := domain.NewService(userPermitRepository)
 
 	userV1PermitController := userV1Controller.NewController(userPermitService)
 
