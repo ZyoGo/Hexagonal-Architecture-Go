@@ -15,7 +15,7 @@ type Users struct {
 	UpdatedAt time.Time
 }
 
-// Ingoing Port
+// Ingoing Port For Data Transfer Object
 type UserRepository interface {
 	Save(user Users) (*Users, error)
 	Update(user Users) (*Users, error)
@@ -24,7 +24,7 @@ type UserRepository interface {
 	FindAll() ([]Users, error)
 }
 
-// Outgoing Port
+// Outgoing Port for Logic Service
 type UserService interface {
 	Create(userSpec spec.UpsertUserSpec) (Users, error)
 	Update(userSpec spec.UpsertUserSpec) (Users, error)
