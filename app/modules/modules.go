@@ -10,7 +10,7 @@ import (
 
 func RegisterModules(dbCon *util.DatabaseConnection) api.Controller {
 	userPermitRepository := userRepository.RepositoryFactory(dbCon)
-	userPermitService := userService.NewService(userPermitRepository)
+	userPermitService := userService.NewServiceUser(userPermitRepository)
 
 	userV1PermitController := userV1Controller.NewController(userPermitService)
 

@@ -1,6 +1,7 @@
 package spec
 
 type UpsertUserSpec struct {
-	Email    string `validate:"required,email"`
-	Password string `validate:"required,min=6"`
+	Username string
+	Email    string
+	Password string
 }

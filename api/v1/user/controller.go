@@ -1,6 +1,9 @@
 package user
 
 import (
+	"github.com/labstack/echo/v4"
+	"github.com/w33h/Hexagonal-Architecture-Go/business/user"
+	"github.com/w33h/Hexagonal-Architecture-Go/helpers"
 	"net/http"
 	"strconv"
 
@@ -12,10 +15,10 @@ import (
 )
 
 type Controller struct {
-	service service.UserService
+	service user.UserService
 }
 
-func NewController(service service.UserService) *Controller {
+func NewController(service user.UserService) *Controller {
 	return &Controller{
 		service: service,
 	}
@@ -67,5 +70,23 @@ func (ctrl *Controller) CreateUser(c echo.Context) error {
 		Status:  http.StatusCreated,
 		Message: "Failed",
 		Data:    user,
+	})
+}
+
+func (ctrl *Controller) GetUsers(c echo.Context) error {
+	users, err := ctrl.service.FindAll()
+
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, &helpers.ResponseFormatter{
+			Status:  http.StatusBadRequest,
+			Message: "Failed",
+			Data:    err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, &helpers.ResponseFormatter{
+		Status:  http.StatusOK,
+		Message: "Success",
+		Data:    users,
 	})
 }
